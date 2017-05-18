@@ -32,75 +32,29 @@ function createButtons() {
 createButtons();
 
 
-// On click function for add form
+// On click function for add for
+$(".add-topic").on("click", addTopicButton);
+
 
 function addTopicButton () {
-	$(".add-topic").on("click", function(event) {
-		event.preventDefault();
+	event.preventDefault();
+
+	var topicInput = $('.topic-input').val();
+
+	if (topicInput === undefined || topicInput === "") {
+		$("#columns").empty();
+		$('.message').html('You forgot to enter a topic, try again!');
+	} else {
 		var topic = $(".topic-input").val().trim();
 		topics.push(topic);
 		createButtons();
-	});
+	}
+
 }
 
+
+
 addTopicButton();
-
-// // Creates the list of results
-// function createResults() {
-// 	var topicText = $(this).attr("data");
-// 	console.log(topicText);
-
-// 	$(".results").empty();
-
-// 	// Query Giphy API using the button text
-// 	var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
-//         topicText + "&api_key=dc6zaTOxFJmzC&limit=25";
-
-	
-//     // AJAX call to Giphy API
-// 	$.ajax({
-// 		url: queryURL,
-// 		method: "GET"
-// 	}).done(function(response) {
-// 		console.log(response);
-// 		var results = response.data;
-
-// 		// Loop to create each image as a div and show the rating
-// 		for (var i = 0; i < results.length; i++) {
-// 			var gifDiv = $("<div class='item'>");
-// 	        var rating = results[i].rating;
-// 	        var rating = rating.toUpperCase();
-// 	        var p = $("<p>").text( rating + " Rated");
-
-// 	        // Create img element
-// 	        var gifImage = $("<img>");
-// 			gifImage.attr({
-// 				"src": results[i].images.fixed_height.url, 
-// 				"class": "item-img",
-// 				"data-still": results[i].images.fixed_height_still.url, 
-// 				"data-animate": results[i].images.fixed_height.url, 
-// 				"data-state": "still"});
-
-// 			// Prepend image to results
-// 	        gifDiv.prepend(p);
-// 	        gifDiv.prepend(gifImage);
-
-// 	        $(".results").prepend(gifDiv);
-// 		}
-
-// 		// Displays this message if there are no results
-// 		if (results.length === 0 ) {
-// 			$('.message').html('Sorry! No results for ' + topicText.toUpperCase()).attr('text-align', 'center');
-// 		}
-// 		// Displays this message if there are results
-// 		else {
-// 			$(".message").html('Showing results for ' + topicText.toUpperCase() + '<br>');
-//         }
-// 	});
-
-// 	// On click function to pause and play gifs
-// 	$(document).on("click", ".item-img", pause);
-// }
 
 // Create results in a column layout
 function createResults() {
@@ -132,11 +86,21 @@ function createResults() {
 	        // Create img element
 	        var gifImage = $("<img>");
 			gifImage.attr({
-				"src": results[i].images.fixed_height.url, 
+				"src": results[i].images.fixed_width.url, 
 				"class": "item-img",
-				"data-still": results[i].images.fixed_height_still.url, 
-				"data-animate": results[i].images.fixed_height.url, 
-				"data-state": "still"});
+				"data-still": results[i].images.fixed_width_still.url, 
+				"data-animate": results[i].images.fixed_width.url, 
+				"data-state": "animate"});
+
+
+			// var z = gifImage.css('width');
+			// // Resize image if it's not wide enough
+			// if (z < ) {
+
+			// } else {
+			// 	console.log('else');
+			// }
+
 
 			// Prepend image to results
 	        gifDiv.prepend(caption);
